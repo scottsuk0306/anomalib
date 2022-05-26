@@ -30,6 +30,8 @@ from anomalib.models.components import (
 from anomalib.models.patchcore.anomaly_map import AnomalyMapGenerator
 from anomalib.pre_processing import Tiler
 
+import random
+
 
 class PatchcoreModel(DynamicBufferModule, nn.Module):
     """Patchcore Module."""
@@ -148,9 +150,22 @@ class PatchcoreModel(DynamicBufferModule, nn.Module):
         """
 
         # Coreset Subsampling
-        sampler = KCenterGreedy(embedding=embedding, sampling_ratio=sampling_ratio)
-        coreset = sampler.sample_coreset()
-        self.memory_bank = coreset
+        # sampler = KCenterGreedy(embedding=embedding, sampling_ratio=sampling_ratio)
+        # coreset = sampler.sample_coreset()
+        # self.memory_bank = coreset
+
+        # Identity Subsampling
+        self.memory_bank = embedding
+
+        # Random Subsampling
+        # indice = random.sample(range(embedding.shape[0]), round(embedding.shape[0] * sampling_ratio))
+        # self.memory_bank = embedding[indice]
+
+        # GMM Subsampling
+        # sampler = KCenterGreedy(embedding=embedding, sampling_ratio=sampling_ratio)
+        # coreset = sampler.sample_coreset()
+        # self.memory_bank = coreset
+
 
     def nearest_neighbors(self, embedding: Tensor, n_neighbors: int = 9) -> Tensor:
         """Nearest Neighbours using brute force method and euclidean norm.
