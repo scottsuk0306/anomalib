@@ -167,7 +167,7 @@ class PatchcoreModel(DynamicBufferModule, nn.Module):
         import matplotlib.pyplot as plt
         from sklearn.mixture import GaussianMixture
         pca = PCA(0.99, whiten = True)
-        data = pca.fit_transform(embedding.data)
+        data = pca.fit_transform(embedding.cpu().data)
         model = GaussianMixture(10, covariance_type='full', random_state = 0).fit(embedding)
         samples = model.sample(round(embedding.shape[0] * sampling_ratio), randome_state = 0)
         self.memory_bank = pca.inverse_transform(samples)
