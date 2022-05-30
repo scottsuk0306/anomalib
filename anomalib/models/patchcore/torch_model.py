@@ -162,15 +162,13 @@ class PatchcoreModel(DynamicBufferModule, nn.Module):
         # self.memory_bank = embedding[indice]
 
         # GMM Subsampling
-        from sklearn.decomposition import PCA
         import numpy as np
         import matplotlib.pyplot as plt
         from sklearn.mixture import GaussianMixture
-        pca = PCA(0.99, whiten = True)
-        data = pca.fit_transform(embedding.cpu().data)
+        
         model = GaussianMixture(10, covariance_type='full', random_state = 0).fit(embedding)
         samples = model.sample(round(embedding.shape[0] * sampling_ratio), randome_state = 0)
-        self.memory_bank = pca.inverse_transform(samples)
+        self.memory_bank = samples
         # sampler = KCenterGreedy(embedding=embedding, sampling_ratio=sampling_ratio)
         # coreset = sampler.sample_coreset()
         # self.memory_bank = coreset
