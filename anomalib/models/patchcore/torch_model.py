@@ -155,11 +155,11 @@ class PatchcoreModel(DynamicBufferModule, nn.Module):
         # self.memory_bank = coreset
 
         # Identity Subsampling
-        self.memory_bank = embedding
+        # self.memory_bank = embedding
 
         # Random Subsampling
-        # indice = random.sample(range(embedding.shape[0]), round(embedding.shape[0] * sampling_ratio))
-        # self.memory_bank = embedding[indice]
+        indice = random.sample(range(embedding.shape[0]), round(embedding.shape[0] * sampling_ratio))
+        self.memory_bank = embedding[indice]
 
         # GMM Subsampling
         # sampler = KCenterGreedy(embedding=embedding, sampling_ratio=sampling_ratio)
