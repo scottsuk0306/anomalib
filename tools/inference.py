@@ -94,6 +94,7 @@ def stream() -> None:
     # This config file is also used for training and contains all the relevant
     # information regarding the data, model, train and inference details.
     args = get_args()
+    print(args)
     config = get_configurable_parameters(config_path=args.config)
 
     # Get the inferencer. We use .ckpt extension for Torch models and (onnx, bin)

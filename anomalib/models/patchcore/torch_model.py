@@ -150,9 +150,9 @@ class PatchcoreModel(DynamicBufferModule, nn.Module):
         """
 
         # Coreset Subsampling
-        # sampler = KCenterGreedy(embedding=embedding, sampling_ratio=sampling_ratio)
-        # coreset = sampler.sample_coreset()
-        # self.memory_bank = coreset
+        sampler = KCenterGreedy(embedding=embedding, sampling_ratio=sampling_ratio)
+        coreset = sampler.sample_coreset()
+        self.memory_bank = coreset
 
         # Identity Subsampling
         # self.memory_bank = embedding
@@ -162,13 +162,13 @@ class PatchcoreModel(DynamicBufferModule, nn.Module):
         # self.memory_bank = embedding[indice]
 
         # GMM Subsampling
-        import numpy as np
-        import matplotlib.pyplot as plt
-        from sklearn.mixture import GaussianMixture
+        # import numpy as np
+        # import matplotlib.pyplot as plt
+        # from sklearn.mixture import GaussianMixture
         
-        model = GaussianMixture(10, covariance_type='full', random_state = 0).fit(embedding.cpu().data.numpy())
-        samples = model.sample(round(embedding.shape[0] * sampling_ratio), randome_state = 0)
-        self.memory_bank = samples
+        # model = GaussianMixture(10, covariance_type='full', random_state = 0).fit(embedding.cpu().data.numpy())
+        # samples = model.sample(round(embedding.shape[0] * sampling_ratio), randome_state = 0)
+        # self.memory_bank = samples
         # sampler = KCenterGreedy(embedding=embedding, sampling_ratio=sampling_ratio)
         # coreset = sampler.sample_coreset()
         # self.memory_bank = coreset
