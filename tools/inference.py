@@ -145,7 +145,9 @@ def infer(image_path: Path, inferencer: Inferencer, save_path: Optional[Path] = 
     # path is provided, `predict` method will read the image from
     # file for convenience. We set the superimpose flag to True
     # to overlay the predicted anomaly map on top of the input image.
+
     output = inferencer.predict(image=image_path, superimpose=True, overlay_mask=overlay)
+    print(inferencer)
 
     # Incase both anomaly map and scores are returned add scores to the image.
     if isinstance(output, tuple):
