@@ -203,7 +203,7 @@ class PatchcoreModel(DynamicBufferModule, nn.Module):
         #4: l1 distance (manhattan) generated for experiments, using scipy (cpu computing)
         # em = embedding.cpu().numpy()
         # bank = self.memory_bank.cpu().numpy()
-        # distances = torch.from_numpy(distance.cdist(em, bank, 'cityblock'))
+        # distances = torch.from_numpy(torch.cdist(em, bank, 'cityblock'))
 
         patch_scores, _ = distances.topk(k=n_neighbors, largest=False, dim=1)
         return patch_scores
